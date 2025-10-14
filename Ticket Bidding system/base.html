@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}रेलवे टिकट बोली प्रणाली{% endblock %}</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7fafc;
+        }
+        .container {
+            max-width: 1200px;
+        }
+        /* Custom styling for form input focus */
+        .input-focus:focus {
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5); /* Blue shadow */
+            border-color: #4299e1;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+    <!-- Header/Navigation Bar -->
+    <header class="bg-indigo-600 shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="{% url 'ticket_list_and_bid' %}" class="text-2xl font-bold text-white tracking-wide">
+                ट्रेन बोली
+            </a>
+            <nav>
+                {% if user.is_authenticated %}
+                    <span class="text-white text-sm mr-4">नमस्ते, {{ user.username }}!</span>
+                    <a href="{% url 'logout' %}" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-semibold transition duration-200 shadow-lg">
+                        लॉगआउट
+                    </a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-semibold transition duration-200 shadow-lg">
+                        लॉगिन
+                    </a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Block -->
+    <main class="flex-grow container mx-auto px-4 py-8">
+        
+        <!-- Messages Section -->
+        {% if messages %}
+            <div class="mb-6">
+                {% for message in messages %}
+                    <div class="p-4 rounded-lg shadow-md mb-3 text-sm 
+                        {% if message.tags == 'success' %}
+                            bg-green-100 border border-green-400 text-green-700
+                        {% elif message.tags == 'warning' %}
+                            bg-yellow-100 border border-yellow-400 text-yellow-700
+                        {% elif message.tags == 'error' %}
+                            bg-red-100 border border-red-400 text-red-700
+                        {% else %}
+                            bg-blue-100 border border-blue-400 text-blue-700
+                        {% endif %}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- Content from child templates goes here -->
+        {% block content %}
+        {% endblock content %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white mt-auto">
+        <div class="container mx-auto px-4 py-4 text-center text-sm">
+            &copy; 2025 रेलवे टिकट बोली प्रणाली | ML-Powered Dynamic Bidding
+        </div>
+    </footer>
+</body>
+</html>
