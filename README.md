@@ -57,8 +57,6 @@ Virtual Environment (venv/conda)
 
 Installation Steps
 Clone the repository:
-
-git clone [https://github.com/miijumeraj/Railway-Ticket-Bidding-System.git](https://github.com/miijumeraj/Railway-Ticket-Bidding-System.git)
 cd Railway-Ticket-Bidding-System
 
 Setup Virtual Environment and Install Dependencies:
